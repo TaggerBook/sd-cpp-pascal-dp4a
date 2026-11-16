@@ -14,9 +14,10 @@ Custom `INT8 __dp4a` GEMM and FlashAttention backend for [`stable-diffusion.cpp`
 
 ## Repository Structure
 
-- **`bin/`** — static Windows x64 binaries (`CUDA 12.9`, `SM 6.1`, universal `x86-64 SSE2` CPU baseline — runs on older Intel/AMD CPUs without `AVX`/`AVX2`):
-  - `sd-cli_DP4a.exe` — CLI (`--dp4a` flag or `SD_CUDA_DP4A=1` env var; stock behavior by default)
-  - `sd-server_DP4a.exe` — HTTP server (`--dp4a` enabled by default)
+- **`bin/`** — static Windows x64 binaries (`CUDA 12.9`, `SM 6.1`):
+  - `sd-cli_DP4a_AVX2.exe` / `sd-server_DP4a_AVX2.exe` — for modern CPUs with `AVX2 + FMA` (Intel Haswell 4th gen+, AMD Ryzen+; recommended)
+  - `sd-cli_DP4a_SSE4.exe` / `sd-server_DP4a_SSE4.exe` — for older CPUs without `AVX2` (Intel Core i 1st–3rd gen, Xeon E5 v1/v2, AMD FX)
+  - *(CLI binaries use `--dp4a` flag or `SD_CUDA_DP4A=1` env var and run stock by default; server binaries enable `--dp4a` by default.)*
 - **`patches/`**:
   - `ggml-dp4a.patch` — `ggml` patches (`dp4a_gemm.*`, `fattn_dp4a.cuh`, dispatch & FP32 cuBLAS override in `ggml-cuda.cu`)
   - `sd-cpp-dp4a.patch` — `stable-diffusion.cpp` patches (`--dp4a` flag, `SD_USE_CUDA` for `sd-cli` / `sd-server`, cache cleanup on `free_sd_ctx`)
