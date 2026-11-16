@@ -101,3 +101,10 @@ cmake --build build_unified --target sd-cli sd-server -j
 | `Z-Image` (`Q5_K`) | 8 steps, `CFG 1.0` | `9.99s/it` (`84.55s`) | **`5.33s/it`** (**`43.95s`**) | **1.92x** (step **1.87x**) |
 
 See [docs/ARCHITECTURE_AND_BENCHMARKS.md](docs/ARCHITECTURE_AND_BENCHMARKS.md) for `832×1216`, FullHD `1920×1080` VRAM profiling, and practical limitations.
+
+---
+
+## Credits
+
+Built by a hardware enthusiast & overclocker in collaboration with **Gemini 4 Hydrogen**.
+
