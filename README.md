@@ -14,7 +14,7 @@ Custom `INT8 __dp4a` GEMM and FlashAttention backend for [`stable-diffusion.cpp`
 
 ## Repository Structure
 
-- **`bin/`** — static Windows x64 binaries (`CUDA 12.9`, `SM 6.1`):
+- **`bin/`** — static Windows x64 binaries (`CUDA 12.9`, `SM 6.1`, universal `x86-64 SSE2` CPU baseline — runs on older Intel/AMD CPUs without `AVX`/`AVX2`):
   - `sd-cli_DP4a.exe` — CLI (`--dp4a` flag or `SD_CUDA_DP4A=1` env var; stock behavior by default)
   - `sd-server_DP4a.exe` — HTTP server (`--dp4a` enabled by default)
 - **`patches/`**:
@@ -74,7 +74,7 @@ git submodule update --init --recursive
 git apply ../patches/sd-cpp-dp4a.patch
 git -C ggml apply ../../patches/ggml-dp4a.patch
 
-cmake -B build_unified -G Ninja -DSD_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=61 -DCMAKE_BUILD_TYPE=Release
+cmake -B build_unified -G Ninja -DSD_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=61 -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=OFF
 cmake --build build_unified --target sd-cli sd-server -j
 ```
 
