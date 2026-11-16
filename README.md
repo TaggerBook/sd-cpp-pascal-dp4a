@@ -1,6 +1,14 @@
 # `sd-cpp-pascal-dp4a` — Native INT8 `__dp4a` Backend for `stable-diffusion.cpp` on NVIDIA Pascal (SM 6.1)
 
-Custom `INT8 __dp4a` GEMM and FlashAttention backend for [`stable-diffusion.cpp`](https://github.com/leejet/stable-diffusion.cpp) (base commit `b9d7176`, `ggml d803c238`) targeting **NVIDIA Pascal (SM 6.1)** GPUs (`GTX 1060` / `1070` / `1080` / `1080 Ti`, `P102` / `P104`) — delivering **~1.7x–2.0x faster sampling** without quality loss and with safe VRAM limits.
+Custom `INT8 __dp4a` GEMM and FlashAttention backend for [`stable-diffusion.cpp`](https://github.com/leejet/stable-diffusion.cpp) (base commit `b9d7176`, `ggml d803c238`) targeting **NVIDIA Pascal (`SM 6.1`)** GPUs — delivering **~1.7x–2.0x faster sampling** without quality loss and with safe VRAM limits.
+
+### Supported GPUs (`SM 6.1`: `GP102` / `GP104` / `GP106` / `GP107`)
+- **GeForce GTX 10-series / TITAN:** `GTX 1050` / `1050 Ti`, `GTX 1060`, `GTX 1070` / `1070 Ti`, `GTX 1080` / `1080 Ti`, `TITAN X (Pascal)` / `TITAN Xp`
+- **Data Center / Workstation:** `Tesla P40 (24 GB)`, `Tesla P4 (8 GB)`, `Quadro P6000 (24 GB)`, `Quadro P5000 (16 GB)`, `Quadro P4000 (8 GB)`, `Quadro P2000`
+- **Mining / Compute:** `P102-100 (10 GB)`, `P104-100 (8 GB)`, `P106-100 (6 GB)`
+
+> **Note:** On 16–24 GB cards (`Tesla P40`, `Quadro P6000`, `Quadro P5000`), even large 12B models fit entirely into the **Level 1 Persistent W8 Cache** without needing the Level 2 Scratchpad fallback.  
+> `Tesla P100` (`SM 6.0`, `GP100`) is **not** supported by `__dp4a` — `GP100` lacks `__dp4a` hardware instructions and uses native `2:1 FP16` instead.
 
 ---
 

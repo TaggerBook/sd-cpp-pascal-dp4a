@@ -2,7 +2,7 @@
 
 ## 1. Why Pascal (SM 6.1) & Why `__dp4a`
 
-NVIDIA Pascal GPUs (**SM 6.1**: `GTX 1060`, `GTX 1070`, `GTX 1080`, `GTX 1080 Ti`, `P102`, `P104`) lack Tensor Cores and suffer a **1:64 FP16 (`half2`) throughput penalty** relative to `FP32`. However, SM 6.1 chips include the native **`__dp4a`** instruction (4× `int8` multiply-accumulate into `int32` in 1 cycle), providing up to **~4× higher peak compute throughput (`TOPS`)** than `FP32` (`TFLOPS`).
+NVIDIA Pascal **SM 6.1** GPUs (`GP102` / `GP104` / `GP106` / `GP107` — including `GTX 1050–1080 Ti`, `TITAN X/Xp`, `Tesla P4/P40`, `Quadro P2000–P6000`, and `P102`/`P104`/`P106`) lack Tensor Cores and suffer a **1:64 FP16 (`half2`) throughput penalty** relative to `FP32`. However, SM 6.1 chips include the native **`__dp4a`** instruction (4× `int8` multiply-accumulate into `int32` in 1 cycle), providing up to **~4× higher peak compute throughput (`TOPS`)** than `FP32` (`TFLOPS`). *(Note: `Tesla P100` is `SM 6.0 / GP100`, which lacks `__dp4a` and uses native `2:1 FP16` instead.)*
 
 Stock `ggml-cuda` already uses `__dp4a` inside its `mmq` kernels (`64×64` tiles), but on a GTX 1070 stock `mmq` reaches only ~`7.8 TOPS` out of `26 TOPS` peak, and `FLASH_ATTN_EXT` remains a major bottleneck.
 
