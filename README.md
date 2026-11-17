@@ -103,6 +103,9 @@ cmake --build build_unified --target sd-cli sd-server -j
 
 See [docs/ARCHITECTURE_AND_BENCHMARKS.md](docs/ARCHITECTURE_AND_BENCHMARKS.md) for `832×1216`, FullHD `1920×1080` VRAM profiling, and practical limitations.
 
+> [!NOTE]
+> **Legacy UNet models (SD 1.5 / SDXL):** `--dp4a` targets modern **DiT** architectures (`~1.7x–1.92x` sampling speedup) where compute is dominated by `mul_mat` and attention. On UNet models, most runtime goes into `conv2d` and VAE decoding, so expected sampling gain on SDXL is **~10–11%** (e.g., `90.98s → 81.35s` on `ILL_ramthrusts_Q8_0` at `1216×832`, 20 steps), which is near the practical ceiling without custom INT8 `conv2d` kernels.
+
 ---
 
 ## Credits
